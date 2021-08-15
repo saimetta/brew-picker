@@ -9,6 +9,7 @@ Dependencies
 - [Typescript](https://www.typescriptlang.org/)
 - [React context](https://reactjs.org/docs/context.html)
 - [React hooks](https://reactjs.org/docs/hooks-intro.html)
+- [Reach router](https://reach.tech/)
 - [Hosted by Vercel](https://vercel.com/)
 
 ## Available Scripts
