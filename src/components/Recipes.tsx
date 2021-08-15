@@ -8,9 +8,9 @@ export const BEER_RECIPES_API_URL = 'https://api.punkapi.com/v2/beers';
 
 interface IRecipesProps {
     favorites?: boolean
-}
+};
+
 export default function Recipes(props: IRecipesProps): JSX.Element {
-    //QUITAR TODA LA LOGICA DE FETCH!
     const { state, dispatch } = useContext(Store);
     const [items, setItems] = useState([]);
     const { favorites, recipes } = state;

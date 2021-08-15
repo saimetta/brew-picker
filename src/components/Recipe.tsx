@@ -18,18 +18,23 @@ export default function Recipe(): JSX.Element {
     const { state } = useContext(Store);
     const params = useParams();
     let recipe: IRecipe = state.recipes[0];
-    const recipeId: number = parseInt(params.recipeId, 10);
-
-
+    
+    if (params.recipeId) {
+        const recipeId: number = parseInt(params.recipeId, 10);
+        recipe = state.recipes.find((item: IRecipe) => {
+            return item.id === recipeId 
+        });
+    }
+    
     const renderIngridients = (ingredients: IIngridient[], type: string): JSX.Element => {
         return (
-            <table className="ui celled table">
+            <table className="ui celled table stackable">
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Unit</th>
-                        { type === 'hop' ? 
+                        {type === 'hop' ?
                             <>
                                 <th>Timing</th>
                                 <th>Attribute</th>
@@ -42,11 +47,11 @@ export default function Recipe(): JSX.Element {
                     {
                         ingredients.map((item: IIngridient, index: number) => {
                             return (
-                                <tr key={ item.name + index}>
-                                    <td data-label="Name">{ item.name}</td>
-                                    <td data-label="Amount">{ item.amount.value}</td>
+                                <tr key={item.name + index}>
+                                    <td data-label="Name">{item.name}</td>
+                                    <td data-label="Amount">{item.amount.value}</td>
                                     <td data-label="Unit">{item.amount.unit}</td>
-                                    { type === 'hop' ? 
+                                    { type === 'hop' ?
                                         <>
                                             <td data-label="Timing">{item.add}</td>
                                             <td data-label="Attribute">{item.attribute}</td>
@@ -60,13 +65,9 @@ export default function Recipe(): JSX.Element {
                 </tbody>
             </table>
         );
-    }
+    };
 
-    if (recipeId) {
-        recipe = state.recipes.find((item: IRecipe) => {
-            return item.id === recipeId 
-        });
-    }    
+
     if (!recipe) return <></>;
     return (
         <div className="ui items">
