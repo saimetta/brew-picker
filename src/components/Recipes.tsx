@@ -82,12 +82,12 @@ export default function Recipes(props: IRecipesProps): JSX.Element {
                         <button
                             className="ui button small"
                             onClick={ () => onSelect(recipe)}
-                        >View details</button>
+                        >View recipe</button>
                     </span>
                 </div>
                 <div className="extra content">
                     <span className="right floated">
-                    Abv: {recipe.abv} Ibu: { recipe.ibu}
+                        Abv: {recipe.abv} Ibu: { recipe.ibu}
                     </span>
                     <span className="left floated star">
                     <i

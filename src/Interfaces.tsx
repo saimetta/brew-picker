@@ -6,6 +6,10 @@ export interface IRecipe {
   image_url: string,
   abv: number,
   ibu: number,
+  volume: {
+    value: number,
+    unit: string
+  },
   ingredients: {
     malt: [
       {

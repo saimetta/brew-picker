@@ -31,10 +31,10 @@ export default function Recipe(): JSX.Element {
             <table className="ui celled table stackable">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>{ type }</th>
                         <th>Amount</th>
                         <th>Unit</th>
-                        {type === 'hop' ?
+                        {type === 'Hops' ?
                             <>
                                 <th>Timing</th>
                                 <th>Attribute</th>
@@ -48,10 +48,10 @@ export default function Recipe(): JSX.Element {
                         ingredients.map((item: IIngridient, index: number) => {
                             return (
                                 <tr key={item.name + index}>
-                                    <td data-label="Name">{item.name}</td>
+                                    <td data-label={ type }>{item.name}</td>
                                     <td data-label="Amount">{item.amount.value}</td>
                                     <td data-label="Unit">{item.amount.unit}</td>
-                                    { type === 'hop' ?
+                                    { type === 'Hops' ?
                                         <>
                                             <td data-label="Timing">{item.add}</td>
                                             <td data-label="Attribute">{item.attribute}</td>
@@ -82,10 +82,9 @@ export default function Recipe(): JSX.Element {
                         <p><strong>Tagline:</strong> {recipe.tagline}</p>
                         <p><strong>Food pairing:</strong> {recipe.food_pairing.join(". ")}</p>
                         <p><strong>Ibu:</strong> { recipe.ibu } <strong>Abv:</strong> { recipe.abv }</p>
-                        <p><strong>Malts:</strong></p>
-                        {renderIngridients(recipe.ingredients.malt, 'malt')}
-                        <p><strong>Hops:</strong></p>
-                        {renderIngridients(recipe.ingredients.hops, 'hop')}
+                        <p><strong>Ingredients (for { recipe.volume.value } { recipe.volume.unit } preparation):</strong></p>
+                        {renderIngridients(recipe.ingredients.malt, 'Malts')}
+                        {renderIngridients(recipe.ingredients.hops, 'Hops')}
                         <p><strong>Tips:</strong> {recipe.brewers_tips}</p>
                         <p><strong>Creator:</strong> {recipe.contributed_by}</p>
                     </div>
