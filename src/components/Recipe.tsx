@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Store } from '../store/Store';
 import { IRecipe } from '../Interfaces';
 import { useParams } from "@reach/router"
@@ -18,7 +18,7 @@ export default function Recipe(): JSX.Element {
     const { state } = useContext(Store);
     const params = useParams();
     let recipe: IRecipe = state.recipes[0];
-    
+
     if (params.recipeId) {
         const recipeId: number = parseInt(params.recipeId, 10);
         recipe = state.recipes.find((item: IRecipe) => {

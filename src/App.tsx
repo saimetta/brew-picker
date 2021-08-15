@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { Store, actions } from './store/Store';
-
+import ScrollToTop from './components/ScrollToTop';
 import Header from './components/Header';
 
 export const BEER_RECIPES_API_URL = 'https://api.punkapi.com/v2/beers';
@@ -34,6 +34,7 @@ export default function App(props: any): JSX.Element {
           <div className="sub header">Pick your favorite</div>  
         </div>
       </h1>
+      <ScrollToTop />
       <Header />
       {props.children}
     </div>

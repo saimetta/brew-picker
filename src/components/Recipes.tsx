@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store, actions } from '../store/Store';
 import { IRecipe, IAction } from '../Interfaces';
 import { useNavigate } from "@reach/router"
