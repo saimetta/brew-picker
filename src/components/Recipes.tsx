@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Store, actions } from './Store';
-import { IRecipe, IAction } from './Interfaces';
+import { Store, actions } from '../store/Store';
+import { IRecipe, IAction } from '../Interfaces';
+import { useNavigate } from "@reach/router"
 
 
 export const BEER_RECIPES_API_URL = 'https://api.punkapi.com/v2/beers';
@@ -9,16 +10,17 @@ interface IRecipesProps {
     favorites?: boolean
 }
 export default function Recipes(props: IRecipesProps): JSX.Element {
+    //QUITAR TODA LA LOGICA DE FETCH!
     const { state, dispatch } = useContext(Store);
     const [items, setItems] = useState([]);
     const { favorites, recipes } = state;
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchItems = () => {
             if (props.favorites) {
                 setItems(favorites);
             } else {
-                recipes && recipes.length === 0 && fetchDataAction();
                 setItems(recipes);
             }
         };
@@ -51,11 +53,12 @@ export default function Recipes(props: IRecipesProps): JSX.Element {
         });
     };
 
-    const onSelect = (recipe: IRecipe): IAction => {
-        return dispatch({
+    const onSelect = (recipe: IRecipe): void => {
+        dispatch({
             type: actions.SET_SELECTED,
             payload: recipe.id
         });
+        navigate(`/details/${recipe.id}`);
     };
 
     const renderRecipe = (recipe: IRecipe): JSX.Element => {
@@ -98,14 +101,8 @@ export default function Recipes(props: IRecipesProps): JSX.Element {
         );
     };
 
-    const fetchDataAction = async () => {
-        const response = await fetch(BEER_RECIPES_API_URL);
-        const dataJson = await response.json();
-        return dispatch({
-            type: actions.FETCH_DATA,
-            payload: dataJson
-        });
+    if (!recipes) {
+        return <div>Loading...</div>
     }
-
     return renderItems();
 };

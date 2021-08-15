@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { IState, IAction } from './Interfaces';
+import { IState, IAction } from '../Interfaces';
 
 const initialState: IState = {
     recipes: [],

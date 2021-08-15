@@ -1,8 +1,30 @@
-import React from 'react';
-import ViewSelector from './ViewSelector';
+import React, { useEffect, useContext } from 'react';
+import { Store, actions } from './store/Store';
 
+import Header from './components/Header';
 
-export default function App(): JSX.Element {
+export const BEER_RECIPES_API_URL = 'https://api.punkapi.com/v2/beers';
+
+export default function App(props: any): JSX.Element {
+  const { state, dispatch } = useContext(Store);
+ 
+  useEffect(() => {
+    const { recipes } = state;
+    const fetchItems = () => {
+          recipes && recipes.length === 0 && fetchDataAction();
+      };
+      fetchItems();
+  });
+
+  const fetchDataAction = async () => {
+      const response = await fetch(BEER_RECIPES_API_URL);
+      const dataJson = await response.json();
+      return dispatch({
+          type: actions.FETCH_DATA,
+          payload: dataJson
+      });
+  }
+  
   return (
     <div className="ui container">
       <h1 className="ui center aligned icon header">
@@ -12,7 +34,8 @@ export default function App(): JSX.Element {
           <div className="sub header">Pick your favorite</div>  
         </div>
       </h1>
-      <ViewSelector />
+      <Header />
+      {props.children}
     </div>
   );
 };

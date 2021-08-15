@@ -2,13 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { StoreProvider }  from './Store';
+import { StoreProvider } from './store/Store';
+import Recipes from './components/Recipes';
+import Recipe from './components/Recipe';
+import { Router, RouteComponentProps } from '@reach/router';
 import reportWebVitals from './reportWebVitals';
+
+const RouterPage = (props: { pageComponent: JSX.Element } & RouteComponentProps) => props.pageComponent;
 
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider>
-      <App />
+      <Router>
+        <App path='/'>
+          <RouterPage pageComponent={<Recipes />} path='/' />
+          <RouterPage pageComponent={<Recipes favorites={true}/>} path='/favorites' />
+          <RouterPage pageComponent={ <Recipe />} path='/details/:recipeId'/>
+        </App>
+      </Router>
     </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root')
