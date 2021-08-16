@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useContext } from 'react';
 import { Store } from '../store/Store';
 import { IRecipe } from '../Interfaces';
@@ -72,11 +71,11 @@ export default function Recipe(): JSX.Element {
     return (
         <div className="ui items">
             <div className="item">
-                <a href="#" className="ui small image">
+                <div className="ui small image">
                     <img src={recipe.image_url} alt={ recipe.name }/>
-                </a>
+                </div>
                 <div className="content">
-                    <a href="#" className="header">{ recipe.name }</a>
+                    <span className="header">{ recipe.name }</span>
                     <div className="description">
                         <p><strong>Description:</strong> {recipe.description}</p>
                         <p><strong>Tagline:</strong> {recipe.tagline}</p>
