@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { Store, actions } from '../store/Store';
-import { IRecipe, IAction } from '../Interfaces';
-import { useNavigate } from "@reach/router"
+import { Store } from '../store/Store';
+import { IRecipe } from '../Interfaces';
+import { useNavigate } from '@reach/router';
+import { selectRecipe, addToFavorites, removeFromFavorites} from '../actions/Actions';
 
 
 export const BEER_RECIPES_API_URL = 'https://api.punkapi.com/v2/beers';
@@ -45,20 +46,17 @@ export default function Recipes(props: IRecipesProps): JSX.Element {
         return state.favorites.includes(recipe);
     };
 
-    const toggleFavorite = (recipe: IRecipe): IAction => {
-        const isFav = isFavorite(recipe);
-        return dispatch({
-            type: !isFav ? actions.ADD_FAVORITE : actions.REMOVE_FAVORITE,
-            payload: recipe
-        });
+    const toggleFavorite = (recipe: IRecipe): void => {
+        if (isFavorite(recipe)) {
+            removeFromFavorites(dispatch, recipe);
+        } else {
+            addToFavorites(dispatch, recipe);
+        }
+        
     };
 
     const onSelect = (recipe: IRecipe): void => {
-        dispatch({
-            type: actions.SET_SELECTED,
-            payload: recipe.id
-        });
-        navigate(`/details/${recipe.id}`);
+        selectRecipe(dispatch, recipe, navigate);
     };
 
     const renderRecipe = (recipe: IRecipe): JSX.Element => {

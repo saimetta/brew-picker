@@ -1,5 +1,6 @@
 import { useEffect, useContext } from 'react';
-import { Store, actions } from './store/Store';
+import { Store } from './store/Store';
+import { fetchDataAction } from './actions/Actions';
 import ScrollToTop from './components/ScrollToTop';
 import Header from './components/Header';
 
@@ -11,20 +12,11 @@ export default function App(props: any): JSX.Element {
   useEffect(() => {
     const { recipes } = state;
     const fetchItems = () => {
-          recipes && recipes.length === 0 && fetchDataAction();
+          recipes && recipes.length === 0 && fetchDataAction(dispatch);
       };
       fetchItems();
   });
 
-  const fetchDataAction = async () => {
-      const response = await fetch(BEER_RECIPES_API_URL);
-      const dataJson = await response.json();
-      return dispatch({
-          type: actions.FETCH_DATA,
-          payload: dataJson
-      });
-  }
-  
   return (
     <div className="ui container">
       <h1 className="ui center aligned icon header">
