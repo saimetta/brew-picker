@@ -1,7 +1,7 @@
 # Beer Recipes Picker
 
 Pick your favorite recipes and let's star brewing.
-You can see the live version [here](https://github.com/facebook/create-react-app).
+You can see the live version [here](https://brew-picker.vercel.app).
 
 Dependencies
 
